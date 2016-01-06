@@ -1,0 +1,39 @@
+template <class T>
+void QuickSort( T*a , const int left, const int right)
+// sort a[left:right] into nondecreasing order
+// pivot :   chosen as the reference element to sort into two packs ~~~~
+//   i   :   a[m] <= a[left]  for m < i;   ---------->  i is the starting point of the list
+//                    [ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ]
+//           		   ^  ^                                         ^
+//                    ||   i                                         j
+//                   pivot     
+//   j   :   a[m]>= left for m>j
+{
+
+	if(left < right){
+		int i = left;
+		int	j = right +1;
+		int pivot = a[left];
+	}
+	do{
+		do{  i++; } while(a[i]< pivot);  //   i move to right as a[i] < pivot
+		do{  j--; } while(a[j]> pivot);	//   j move to left as a[j] > pivot
+
+		// after above do-while -----------
+		//  a[i] >= pivot              a[j] <= pivot
+		if(i<j)//   not yet cross over ~~~
+			swap(a[i],a[j]);
+
+	}while(i < j);
+
+//   as i>= j  ,    a[i] > pivot and a[j] < pivot
+//   since a[j] < pivot we choose a[j] to swap
+	swap(a[left],a[j]);
+
+//   a[j] is the correct position of this sorting
+//   so j index is no need to add into the later QuickSort
+	QuickSort(a,left,j-1);
+	QuickSort(a,j+1, right);
+
+
+}
